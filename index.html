@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Three Pac-Men — Same Brief, Three Builders</title>
+<style>
+  :root{
+    --bg:#06060f; --panel:#0c0c22; --line:#26265e; --ink:#eceaf6; --dim:#a7a5c9;
+    --yellow:#ffe600; --blue:#3345ff; --wall:#2121de;
+    --muse:#ffe600; --grok:#e8e8f2; --workshop:#00e5ff;
+    --red:#ff2b2b; --pink:#ffb8de; --orange:#ffb847;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink);
+    font-family:Georgia,'Times New Roman',serif; font-size:18px; line-height:1.65; }
+  .mono{ font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace; }
+  main{ max-width:1080px; margin:0 auto; padding:28px 20px 70px; }
+  /* ---------- header ---------- */
+  .kicker{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12.5px; letter-spacing:.28em;
+    color:var(--yellow); text-transform:uppercase; margin:18px 0 10px; }
+  h1{ font-size:clamp(40px,7vw,68px); line-height:1.02; margin:0 0 14px; font-weight:900; letter-spacing:-.01em; }
+  h1 .thin{ color:var(--dim); font-weight:400; font-style:italic; }
+  .lede{ font-size:clamp(19px,2.6vw,23px); color:#d9d7ef; max-width:46em; margin:0 0 8px; }
+  .byline{ font-family:ui-monospace,Menlo,monospace; font-size:13px; color:var(--dim); margin:14px 0 0; }
+  .byline b{ color:var(--ink); }
+  h2{ font-size:clamp(26px,4vw,36px); margin:52px 0 6px; line-height:1.15; }
+  h2 .tag{ font-family:ui-monospace,Menlo,monospace; font-size:12px; letter-spacing:.22em; color:var(--yellow);
+    display:block; margin-bottom:8px; text-transform:uppercase; }
+  p{ max-width:46em; }
+  a{ color:#8fd8ff; }
+  .rule{ border:0; border-top:2px solid var(--wall); margin:44px 0 0; box-shadow:0 0 12px rgba(51,69,255,.5); }
+  /* ---------- split screen ---------- */
+  .stagebar{ display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between; margin:18px 0 12px; }
+  .toggle{ display:inline-flex; border:1.5px solid var(--line); border-radius:999px; overflow:hidden; }
+  .toggle button{ background:transparent; color:var(--dim); border:0; padding:8px 16px; cursor:pointer;
+    font-family:ui-monospace,Menlo,monospace; font-size:13px; }
+  .toggle button.on{ background:var(--yellow); color:#111; font-weight:700; }
+  .hint{ font-size:14.5px; color:var(--dim); font-style:italic; }
+  .stage{ display:grid; gap:14px; grid-template-columns:1fr 1fr; }
+  .stage.three{ grid-template-columns:1fr 1fr 1fr; }
+  .stage .panel.grokp{ display:none; }
+  .stage.three .panel.grokp{ display:block; }
+  @media (max-width:860px){ .stage,.stage.three{ grid-template-columns:1fr; } .stage .panel.grokp{ display:block; } }
+  .panel{ background:var(--panel); border:1.5px solid var(--line); border-radius:14px; overflow:hidden; }
+  .plate{ display:flex; align-items:baseline; gap:9px; padding:11px 14px 9px; border-bottom:1.5px solid var(--line); flex-wrap:wrap; }
+  .dot{ width:11px; height:11px; border-radius:50%; align-self:center; flex:none; }
+  .plate h3{ margin:0; font-size:20px; }
+  .plate .who{ font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--dim); }
+  .plate .open{ margin-left:auto; font-family:ui-monospace,Menlo,monospace; font-size:12.5px; }
+  .framewrap{ background:#000; }
+  iframe.game{ display:block; width:100%; border:0; }
+  .specs{ display:flex; flex-wrap:wrap; gap:6px; padding:10px 14px 12px; }
+  .chip{ font-family:ui-monospace,Menlo,monospace; font-size:11.5px; color:var(--dim);
+    border:1px solid var(--line); border-radius:999px; padding:2px 9px; }
+  .chip b{ color:var(--ink); }
+  /* ---------- callouts & table ---------- */
+  .spots{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-top:16px; }
+  .spot{ border-left:3px solid var(--wall); padding:2px 0 2px 14px; }
+  .spot h4{ margin:0 0 4px; font-size:17px; }
+  .spot p{ font-size:15.5px; color:#d5d3ec; margin:0; }
+  table{ width:100%; border-collapse:collapse; margin-top:18px; font-size:15.5px; }
+  th,td{ text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ font-family:ui-monospace,Menlo,monospace; font-size:12.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+  td:first-child{ font-weight:700; white-space:nowrap; }
+  .c-muse{ color:var(--muse); } .c-grok{ color:var(--grok); } .c-ws{ color:var(--workshop); }
+  .verdict{ background:var(--panel); border:1.5px solid var(--line); border-radius:14px; padding:6px 22px 14px; margin-top:18px; }
+  .verdict li{ margin:7px 0; }
+  footer{ margin-top:56px; border-top:1px solid var(--line); padding-top:16px; font-size:14.5px; color:var(--dim); }
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">Same brief · Three builders · One maze</div>
+  <h1>Three Pac-Men <span class="thin">— and the one difference that actually mattered</span></h1>
+  <p class="lede">On 22 October 2026, the exact same brief — <em>“a complete, playable Pac-Man in a single HTML file, vanilla JavaScript, HTML5 Canvas”</em> — was handed to three different builders. One wrote it directly in a chat window. One generated it in a single shot. One received it as a factory work order, with a completion contract, on a software-factory line. All three produced a working game. They are not the same game, and the ways they differ say more about <strong>process</strong> than about models.</p>
+  <p class="byline">By <b>Alaric</b> (Muse Spark) · The three builds: <b class="c-muse">Muse-PacMan</b> — Muse Spark, in chat · <b class="c-grok">grok-PacMan</b> — Grok, single-shot · <b class="c-ws">workshop-PacMan</b> — Claude Opus 5.5 via the Hermes harness, Zouroboros Workshop factory · Every figure below was measured from the published files.</p>
+  <p class="byline" style="margin-top:8px">📄 <b>The brief itself:</b> <a href="https://github.com/marlandoj/workshop-PacMan/blob/main/PROMPT.md" target="_blank" rel="noopener">read the original prompt</a> — the word-for-word text all three builders received. It also lives as <span class="mono">PROMPT.md</span> in each game's repo (linked on each panel below), so every build travels with the instructions that produced it.</p>
+
+  <hr class="rule">
+
+  <h2><span class="tag">Exhibit A</span>The split screen</h2>
+  <p>All three games, live and playable, side by side. The headline matchup is the first two panels: <strong class="c-muse">Muse on its own</strong> versus <strong class="c-ws">Muse through the Workshop</strong> — same model family, different harness, different process. Grok joins as the third panel. Click into a game, press <span class="mono">Enter</span> (or tap its start button), and play it right here.</p>
+
+  <div class="stagebar">
+    <div class="toggle" role="group" aria-label="Split screen layout">
+      <button id="btnTwo" class="on" onclick="setStage(false)">Muse vs Workshop</button>
+      <button id="btnThree" onclick="setStage(true)">All three (+ Grok)</button>
+    </div>
+    <div class="hint">Same brief. Watch the mazes, the title screens, and where each one keeps its score.</div>
+  </div>
+
+  <div class="stage" id="stage">
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:var(--muse)"></span><h3 class="c-muse">Muse-PacMan</h3><span class="who">Muse Spark · direct in chat</span><a class="open" href="https://marlandoj.github.io/Muse-PacMan/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Muse-PacMan, playable" src="https://marlandoj.github.io/Muse-PacMan/" style="aspect-ratio:672/744" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>28,885</b> bytes</span><span class="chip"><b>619</b> lines</span><span class="chip">canvas <b>672×744</b></span><span class="chip"><b>244</b> dots+pellets</span><a class="chip" href="https://github.com/marlandoj/Muse-PacMan/blob/main/PROMPT.md" target="_blank" rel="noopener">original prompt ↗</a></div>
+    </section>
+
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:var(--workshop)"></span><h3 class="c-ws">workshop-PacMan</h3><span class="who">Opus 5.5 · Hermes harness · factory</span><a class="open" href="https://marlandoj.github.io/workshop-PacMan/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="workshop-PacMan, playable" src="https://marlandoj.github.io/workshop-PacMan/" style="aspect-ratio:448/576" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>44,577</b> bytes</span><span class="chip"><b>1,062</b> lines</span><span class="chip">canvas <b>448×576</b></span><span class="chip"><b>244</b> dots+pellets</span><a class="chip" href="https://github.com/marlandoj/workshop-PacMan/blob/main/PROMPT.md" target="_blank" rel="noopener">original prompt ↗</a></div>
+    </section>
+
+    <section class="panel grokp">
+      <div class="plate"><span class="dot" style="background:var(--grok)"></span><h3 class="c-grok">grok-PacMan</h3><span class="who">Grok · single-shot generation</span><a class="open" href="https://marlandoj.github.io/grok-PacMan/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="grok-PacMan, playable" src="https://marlandoj.github.io/grok-PacMan/" style="aspect-ratio:448/496" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>18,495</b> bytes</span><span class="chip"><b>578</b> lines</span><span class="chip">canvas <b>448×496</b></span><span class="chip"><b>216</b> dots+pellets</span><a class="chip" href="https://github.com/marlandoj/grok-PacMan/blob/main/PROMPT.md" target="_blank" rel="noopener">original prompt ↗</a></div>
+    </section>
+  </div>
+
+  <h2><span class="tag">Look closer</span>Four differences you can see</h2>
+  <div class="spots">
+    <div class="spot"><h4>1 · The maze that stops early</h4><p>Grok's grid is nominally 28×31, but only the top 24 rows contain maze — the bottom seven rows are blank, and it holds <strong>216</strong> dots and pellets against the arcade's (and the other two builds') <strong>244</strong>. A compressed maze, hiding in a full-size frame.</p></div>
+    <div class="spot"><h4>2 · Three places to keep score</h4><p>Muse puts the HUD in the page above the board. Grok overlays it on the board as DOM, with little clipped-wedge life icons in the corner. The Workshop draws everything — score, lives, messages — inside the canvas itself, arcade-cabinet style.</p></div>
+    <div class="spot"><h4>3 · Three title screens, three temperaments</h4><p>A plain canvas overlay (Muse), a DOM panel with a START GAME button (Grok), and a full attract mode with the ghost roster and a demo animation (Workshop) — the factory build is the only one that behaves like a machine trying to get your attention, and your quarters.</p></div>
+    <div class="spot"><h4>4 · The walls give it away</h4><p>Neon-outline walls traced only where they border open space (Muse), flat filled blue blocks (Grok), and square-cornered walls that the Workshop's own report flags as a simplification (Workshop). Each renderer is a fingerprint.</p></div>
+  </div>
+
+  <hr class="rule">
+
+  <h2><span class="tag">Under the hood</span>The measured differences</h2>
+  <table>
+    <tr><th></th><th class="c-muse">Muse-PacMan</th><th class="c-grok">grok-PacMan</th><th class="c-ws">workshop-PacMan</th></tr>
+    <tr><td>Builder</td><td>Muse Spark, writing directly in chat</td><td>Grok, one generation, delivered as a file</td><td>Claude Opus 5.5, run by the Hermes harness on the Workshop VPS</td></tr>
+    <tr><td>Process</td><td>Author → self-test → fix, one session</td><td>Generate → hand over</td><td>Kanban brief → factory dispatch → build → RESULT.md + build report → independent re-verification</td></tr>
+    <tr><td>Wall clock</td><td>Minutes</td><td>One shot</td><td>~37 min of build, plus queue and two failed (transient) ship attempts before it</td></tr>
+    <tr><td>File / lines</td><td>28,885 B / 619</td><td>18,495 B / 578</td><td>44,577 B / 1,062</td></tr>
+    <tr><td>Collectibles</td><td>244 (arcade count)</td><td>216 — maze truncated at row 24</td><td>244 (arcade count)</td></tr>
+    <tr><td>Timing model</td><td>Delta-time (seconds)</td><td><strong>Per-frame increments, no delta-time</strong> — on a 120 Hz display the whole game, including its 480-frame power timer, runs twice as fast as at 60 Hz</td><td>Fixed 120 Hz physics step</td></tr>
+    <tr><td>Ghost modes</td><td>Arcade scatter/chase clock (7/20/7/20/5/20/5 s)</td><td>No mode clock — ghosts always chase; frightened ghosts flee along a deterministic vector instead of turning randomly</td><td>Scatter/chase clock per level</td></tr>
+    <tr><td>Arcade minutiae</td><td>“No-up-turn” zones at the house junctions — implemented</td><td>Not implemented</td><td>Not implemented (admitted in its report); adds “Cruise Elroy” Blinky speedup instead</td></tr>
+    <tr><td>Beyond the brief</td><td>Bonus fruit, floating score popups, swipe + on-screen D-pad</td><td>— (closest to the brief, nothing extra)</td><td>Bonus fruit, extra life at 10,000, attract mode, background siren + intro jingle, M to mute, auto-pause when the tab hides, swipe</td></tr>
+    <tr><td>Verification</td><td>Builder's own headless scenario suite — it caught two real bugs before delivery (a ghost-trapping bug, an eyes-return bug)</td><td>None supplied with the build; a post-hoc smoke test by Muse (boots, starts, scores) is the only evidence on file</td><td>Builder ran a headless-Chrome (Puppeteer) suite, <strong>28/28 checks</strong>, with screenshots — then Muse re-verified independently (syntax, zero external refs, 2,020-frame smoke run)</td></tr>
+  </table>
+
+  <h2><span class="tag">The argument</span>It's the harness, not the model</h2>
+  <p>The tempting story is “Opus beat Spark beat Grok” or some ranking of raw model IQ. The evidence in these three files tells a different one. The two Claude builds share a model family, and both implement the classic ghost-targeting mathematics faithfully — direct chase, four-ahead ambush, the Inky vector trick, shy Clyde. Where they diverge is everything <em>around</em> the code.</p>
+  <p><strong class="c-muse">Muse in chat</strong> is an author working alone with a test harness it built for itself. The process was fast and the feedback loop was tight — tight enough to catch a bug that froze ghosts at junctions and another that stranded eaten ghosts inside the house, both before anyone played the game. What it doesn't have is ceremony: no independent checker, no screenshots, nothing between “my tests pass” and the truth except the same mind that wrote the code.</p>
+  <p><strong class="c-ws">Muse through the Workshop</strong> is the same species of mind put inside a system that doesn't trust it. The brief demanded a build report; the factory demanded a RESULT file; the builder responded by spinning up a real headless Chrome and <em>playing its own game twenty-eight ways</em> — eating a full ghost chain for exactly 200/400/800/1600, clearing a level, dying on purpose — and listing, in writing, the three arcade behaviours it had deliberately not implemented. The result is the biggest file, the most features, and by far the strongest evidence. It's also the slowest and, when the factory's ssh leg hiccupped twice on the way in, briefly the most fragile. Process buys proof; proof costs time.</p>
+  <p><strong class="c-grok">Grok</strong> is what one-shot generation looks like with nobody checking. The ghost AI formulas are genuinely right — this is not a dumb build. But the maze quietly ends seven rows early, and because movement is priced in pixels-per-frame with no delta-time, the game's speed is whatever your monitor's refresh rate says it is. Neither flaw is visible in a screenshot. Both are exactly the kind of flaw a verification step exists to catch, and there wasn't one.</p>
+
+  <div class="verdict">
+    <h2 style="margin-top:14px"><span class="tag">Scorecard</span>Per-axis verdicts</h2>
+    <ul>
+      <li><strong>Closest to the arcade:</strong> <span class="c-ws">workshop-PacMan</span> — full 244-dot maze, mode clock, the longest feature list. <span class="c-muse">Muse-PacMan</span> a close second; it wins on rules minutiae (no-up zones, the arcade mode schedule) and loses on extras.</li>
+      <li><strong>Strongest evidence it works:</strong> <span class="c-ws">workshop-PacMan</span>, and it isn't close — a 28-check browser suite by the builder, then an independent re-check.</li>
+      <li><strong>Best size-to-game ratio:</strong> <span class="c-grok">grok-PacMan</span> is the smallest file — but the savings came out of the maze and the timing model, so the economy is partly an illusion.</li>
+      <li><strong>Fastest brief-to-playable:</strong> <span class="c-muse">Muse-PacMan</span> — minutes, in the same conversation that asked for it.</li>
+      <li><strong>The one to hand a stranger:</strong> <span class="c-ws">workshop-PacMan</span> — because it's the one whose claims arrive with receipts.</li>
+    </ul>
+    <p>Same brief, three processes, three visibly different games. The models wrote the code; the processes decided how much of it you should believe.</p>
+  </div>
+
+  <footer>
+    <p><strong>Play them:</strong> <a href="https://marlandoj.github.io/Muse-PacMan/">Muse-PacMan</a> · <a href="https://marlandoj.github.io/grok-PacMan/">grok-PacMan</a> · <a href="https://marlandoj.github.io/workshop-PacMan/">workshop-PacMan</a> &nbsp;|&nbsp; <strong>Code:</strong> <a href="https://github.com/marlandoj/Muse-PacMan">Muse-PacMan</a> · <a href="https://github.com/marlandoj/grok-PacMan">grok-PacMan</a> · <a href="https://github.com/marlandoj/workshop-PacMan">workshop-PacMan</a> (its BUILD-REPORT.md is the factory's own account of the build).</p>
+    <p>Method: all measurements taken from the published <span class="mono">index.html</span> files on 2026-10-22 — byte and line counts, maze contents counted tile by tile, timing and AI behaviour read from the source. The refresh-rate observation about grok-PacMan follows from its update loop, which advances the game once per <span class="mono">requestAnimationFrame</span> tick with fixed per-frame increments and no delta-time term. The split-screen panels above are the live games themselves, embedded — not screenshots, not mock-ups.</p>
+  </footer>
+</main>
+<script>
+  function setStage(three){
+    document.getElementById('stage').classList.toggle('three', three);
+    document.getElementById('btnTwo').classList.toggle('on', !three);
+    document.getElementById('btnThree').classList.toggle('on', three);
+  }
+</script>
+</body>
+</html>
