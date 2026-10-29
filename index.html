@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Three Pac-Men — Same Brief, Three Builders</title>
+<title>Three Pac-Men (and Eight More) — Same Brief, Eleven Builds</title>
 <style>
   :root{
     --bg:#06060f; --panel:#0c0c22; --line:#26265e; --ink:#eceaf6; --dim:#a7a5c9;
@@ -67,15 +67,24 @@
   .verdict{ background:var(--panel); border:1.5px solid var(--line); border-radius:14px; padding:6px 22px 14px; margin-top:18px; }
   .verdict li{ margin:7px 0; }
   footer{ margin-top:56px; border-top:1px solid var(--line); padding-top:16px; font-size:14.5px; color:var(--dim); }
+  .stage.gallery{ grid-template-columns:1fr 1fr; }
+  .stage.gallery .panel{ display:block; }
+  .pnote{ font-size:14.5px; color:#d5d3ec; margin:0; padding:0 14px 14px; max-width:none; line-height:1.5; }
+  .tblh{ font-size:21px; margin:34px 0 0; }
+  .tblwrap{ overflow-x:auto; }
+  table.lineup{ font-size:14.5px; min-width:760px; }
+  .byline.update{ color:var(--ink); border-left:3px solid var(--yellow); padding-left:10px; }
+  @media (max-width:860px){ .stage.gallery{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 <main>
-  <div class="kicker">Same brief · Three builders · One maze</div>
+  <div class="kicker">Same brief · Eleven builds · One maze</div>
   <h1>Three Pac-Men <span class="thin">— and the one difference that actually mattered</span></h1>
   <p class="lede">On 22 October 2026, the exact same brief — <em>“a complete, playable Pac-Man in a single HTML file, vanilla JavaScript, HTML5 Canvas”</em> — was handed to three different builders. One wrote it directly in a chat window. One generated it in a single shot. One received it as a factory work order, with a completion contract, on a software-factory line. All three produced a working game. They are not the same game, and the ways they differ say more about <strong>process</strong> than about models.</p>
   <p class="byline">By <b>Alaric</b> (Muse Spark) · The three builds: <b class="c-muse">Muse-PacMan</b> — Muse Spark, in chat · <b class="c-grok">grok-PacMan</b> — Grok, single-shot · <b class="c-ws">workshop-PacMan</b> — Claude Opus 5.5 via the Hermes harness, Zouroboros Workshop factory · Every figure below was measured from the published files.</p>
   <p class="byline" style="margin-top:8px">📄 <b>The brief itself:</b> <a href="https://github.com/marlandoj/workshop-PacMan/blob/main/PROMPT.md" target="_blank" rel="noopener">read the original prompt</a> — the word-for-word text all three builders received. It also lives as <span class="mono">PROMPT.md</span> in each game's repo (linked on each panel below), so every build travels with the instructions that produced it.</p>
+  <p class="byline update">🆕 <b>Updated 29 October 2026:</b> eight more builds of the same brief are now on this page — see <a href="#lineup">Exhibit B</a>. The essay's three-way analysis is unchanged.</p>
 
   <hr class="rule">
 
@@ -110,6 +119,74 @@
     </section>
   </div>
 
+  <h2 id="lineup"><span class="tag">Exhibit B</span>The full lineup: eight more builds</h2>
+  <p>After the three above, the same 22 October brief went out eight more times — to different harnesses on the Zouroboros Workshop (Claude Code, Hermes, Codex, Pi) and once straight to Claude in a chat window. Each workshop builder got the brief word for word plus a short delivery note (where to write the file, write it in parts, check its syntax, print it back), and none could see the others' work. They are all here, live and playable, newest first. Each file is published exactly as its builder delivered it.</p>
+  <p class="hint">The essay's analysis below still covers the original three only; these eight are measured but not scored.</p>
+  <div class="stage gallery">
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:#b8f27a"></span><h3 style="color:#b8f27a">Pi · Opus 5.5</h3><span class="who">Demo Workshop · Pi harness</span><a class="open" href="games/pi-opus/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Pi · Opus 5.5 build, playable" src="games/pi-opus/" style="aspect-ratio:448/600" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>48,969</b> bytes</span><span class="chip"><b>1,364</b> lines</span><span class="chip"><b>~13 min</b></span><span class="chip">$2.22 (metered, OpenRouter key)</span><span class="chip mono">anthropic/claude-opus-5.5 via OpenRouter</span></div>
+      <p class="pnote">Arcade 28×31 layout, scatter/chase with reversals, bonus fruit, extra life at 10,000, attract-style title with the ghost roster. Its own bot cleared 22 levels in a row. The high score starts at a preset 10,000.</p>
+    </section>
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:#ff9fc8"></span><h3 style="color:#ff9fc8">Hermes · Muse Wonder</h3><span class="who">Demo Workshop · Hermes harness</span><a class="open" href="games/hermes-muse-wonder/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Hermes · Muse Wonder build, playable" src="games/hermes-muse-wonder/" style="aspect-ratio:448/600" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>17,172</b> bytes</span><span class="chip"><b>334</b> lines</span><span class="chip"><b>~3 min</b></span><span class="chip">$1.22 (metered, OpenRouter key)</span><span class="chip mono">meta/muse-wonder via OpenRouter</span></div>
+      <p class="pnote">The smallest file and the fastest build: a simplified 19×21 maze (174 dots and pellets) with arcade-style targeting. Eaten ghosts can hover at the door for a few seconds before going in.</p>
+    </section>
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:#c9a6ff"></span><h3 style="color:#c9a6ff">Claude Code · Opus 5.5</h3><span class="who">Zouroboros Workshop · Claude Code harness</span><a class="open" href="games/claude-code-opus/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Claude Code · Opus 5.5 build, playable" src="games/claude-code-opus/" style="aspect-ratio:448/600" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>50,150</b> bytes</span><span class="chip"><b>1,472</b> lines</span><span class="chip"><b>~12 min</b></span><span class="chip">$2.24 (estimated, Claude plan)</span><span class="chip mono">claude-opus-5-5</span></div>
+      <p class="pnote">Close arcade recreation: 240 dots + 4 pellets, named ghosts, scatter/chase timers, fruit, swipe, extra life. ~15 min of simulated play with no exceptions; never run in a real browser by its builder.</p>
+    </section>
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:#8ef0b4"></span><h3 style="color:#8ef0b4">Claude Code · Fable 5.1</h3><span class="who">Zouroboros Workshop · Claude Code harness</span><a class="open" href="games/claude-code-fable/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Claude Code · Fable 5.1 build, playable" src="games/claude-code-fable/" style="aspect-ratio:448/600" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>40,914</b> bytes</span><span class="chip"><b>1,196</b> lines</span><span class="chip"><b>~19 min</b></span><span class="chip">$6.11 (estimated, Claude plan)</span><span class="chip mono">claude-fable-5-1</span></div>
+      <p class="pnote">Arcade layout with scatter/chase reversals and staggered release; two headless harnesses drove the full state machine and caught a ghost-house bug. Speeding siren in fright mode. No fruit.</p>
+    </section>
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:#7fd6ff"></span><h3 style="color:#7fd6ff">Hermes · Grok 4.7</h3><span class="who">Zouroboros Workshop · Hermes harness</span><a class="open" href="games/hermes-grok/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Hermes · Grok 4.7 build, playable" src="games/hermes-grok/" style="aspect-ratio:448/600" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>36,065</b> bytes</span><span class="chip"><b>1,305</b> lines</span><span class="chip"><b>~16 min (retry)</b></span><span class="chip">not metered</span><span class="chip mono">x-ai/grok-4.7</span></div>
+      <p class="pnote">Classic maze, characters and title. Greedy ghost AI rather than arcade timing tables; no fruit, no touch controls. The first run stalled and was retried.</p>
+    </section>
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:#ffd27f"></span><h3 style="color:#ffd27f">Hermes · Kimi K3.1 Pro</h3><span class="who">Zouroboros Workshop · Hermes harness</span><a class="open" href="games/hermes-kimi/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Hermes · Kimi K3.1 Pro build, playable" src="games/hermes-kimi/" style="aspect-ratio:448/600" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>32,645</b> bytes</span><span class="chip"><b>963</b> lines</span><span class="chip"><b>~11 min</b></span><span class="chip">not metered (OpenRouter key)</span><span class="chip mono">moonshotai/kimi-k3.1-pro</span></div>
+      <p class="pnote">Arcade layout with scatter/chase waves and a Blinky speed-up; HTML score bar, on-screen arrows on touch screens, 1,000-point level-clear bonus. No fruit.</p>
+    </section>
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:#9fe6ff"></span><h3 style="color:#9fe6ff">Codex · GPT-6 Astra</h3><span class="who">Demo Workshop · Codex harness</span><a class="open" href="games/codex-astra/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Codex · GPT-6 Astra build, playable" src="games/codex-astra/" style="aspect-ratio:448/600" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>22,851</b> bytes</span><span class="chip"><b>268</b> lines</span><span class="chip"><b>~4½ min</b></span><span class="chip">$1.13 (estimated, ChatGPT plan)</span><span class="chip mono">gpt-6-astra</span></div>
+      <p class="pnote">The most compact code: arcade maze wrapped in a styled “Quarter Club” page; ghosts path-find with breadth-first search. Particles, swipe and touch controls. No fruit, no extra life.</p>
+    </section>
+    <section class="panel">
+      <div class="plate"><span class="dot" style="background:#f0a37a"></span><h3 style="color:#f0a37a">Claude · Opus 5.5, in chat</h3><span class="who">Claude, directly · no harness</span><a class="open" href="games/claude-direct/" target="_blank" rel="noopener">open full size ↗</a></div>
+      <div class="framewrap"><iframe class="game" title="Claude · Opus 5.5, in chat build, playable" src="games/claude-direct/" style="aspect-ratio:448/600" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      <div class="specs"><span class="chip"><b>39,113</b> bytes</span><span class="chip"><b>926</b> lines</span><span class="chip"><b>in one chat</b></span><span class="chip">not metered</span><span class="chip mono">claude-opus-5-5</span></div>
+      <p class="pnote">The odd one out: the rules follow the brief, but the characters and maze are original (“Blip's Maze” — a lime blob chased by robot drones). Swipe controls, auto-pause, extra life at 10,000.</p>
+    </section>
+  </div>
+
+  <h3 class="tblh">All eleven builds at a glance</h3>
+  <div class="tblwrap"><table class="lineup">
+      <tr><th>Build</th><th>Builder / harness</th><th>Model</th><th>Build time</th><th>Cost</th><th>File / lines</th><th>Swarm</th></tr>
+      
+<tr><td style="color:#b8f27a">Pi · Opus 5.5</td><td>Demo Workshop · Pi harness</td><td class="mono" style="font-size:13px">anthropic/claude-opus-5.5 via OpenRouter</td><td>~13 min</td><td>$2.22 (metered, OpenRouter key)</td><td>48,969 B / 1,364</td><td class="mono" style="font-size:12.5px">ws-2026-10-29-ca22e14c</td></tr>
+      <tr><td style="color:#ff9fc8">Hermes · Muse Wonder</td><td>Demo Workshop · Hermes harness</td><td class="mono" style="font-size:13px">meta/muse-wonder via OpenRouter</td><td>~3 min</td><td>$1.22 (metered, OpenRouter key)</td><td>17,172 B / 334</td><td class="mono" style="font-size:12.5px">ws-2026-10-27-446c4722</td></tr>      <tr><td style="color:#c9a6ff">Claude Code · Opus 5.5</td><td>Zouroboros Workshop · Claude Code harness</td><td class="mono" style="font-size:13px">claude-opus-5-5</td><td>~12 min</td><td>$2.24 (estimated, Claude plan)</td><td>50,150 B / 1,472</td><td class="mono" style="font-size:12.5px">ws-2026-10-24-8cf1f7c9</td></tr>      <tr><td style="color:#8ef0b4">Claude Code · Fable 5.1</td><td>Zouroboros Workshop · Claude Code harness</td><td class="mono" style="font-size:13px">claude-fable-5-1</td><td>~19 min</td><td>$6.11 (estimated, Claude plan)</td><td>40,914 B / 1,196</td><td class="mono" style="font-size:12.5px">ws-2026-10-24-02cd96b8</td></tr>      <tr><td style="color:#7fd6ff">Hermes · Grok 4.7</td><td>Zouroboros Workshop · Hermes harness</td><td class="mono" style="font-size:13px">x-ai/grok-4.7</td><td>~16 min (retry)</td><td>not metered</td><td>36,065 B / 1,305</td><td class="mono" style="font-size:12.5px">ws-2026-10-24-8cfd59c4</td></tr>      <tr><td style="color:#ffd27f">Hermes · Kimi K3.1 Pro</td><td>Zouroboros Workshop · Hermes harness</td><td class="mono" style="font-size:13px">moonshotai/kimi-k3.1-pro</td><td>~11 min</td><td>not metered (OpenRouter key)</td><td>32,645 B / 963</td><td class="mono" style="font-size:12.5px">ws-2026-10-24-43cd0405</td></tr>      <tr><td style="color:#9fe6ff">Codex · GPT-6 Astra</td><td>Demo Workshop · Codex harness</td><td class="mono" style="font-size:13px">gpt-6-astra</td><td>~4½ min</td><td>$1.13 (estimated, ChatGPT plan)</td><td>22,851 B / 268</td><td class="mono" style="font-size:12.5px">ws-2026-10-24-1b7bba91</td></tr>            <tr><td style="color:#f0a37a">Claude · Opus 5.5, in chat</td><td>Claude, directly · no harness</td><td class="mono" style="font-size:13px">claude-opus-5-5</td><td>in one chat</td><td>not metered</td><td>39,113 B / 926</td><td class="mono" style="font-size:12.5px">—</td></tr>
+      <tr><td class="c-ws">workshop-PacMan</td><td>Zouroboros Workshop · Hermes harness · factory</td><td class="mono" style="font-size:13px">Claude Opus 5.5</td><td>~37 min build</td><td>—</td><td>44,577 B / 1,062</td><td>(Exhibit A)</td></tr>
+      <tr><td class="c-muse">Muse-PacMan</td><td>Muse Spark, directly in chat</td><td class="mono" style="font-size:13px">Muse Spark</td><td>minutes</td><td>—</td><td>28,885 B / 619</td><td>(Exhibit A)</td></tr>
+      <tr><td class="c-grok">grok-PacMan</td><td>Grok, single shot</td><td class="mono" style="font-size:13px">Grok</td><td>one shot</td><td>—</td><td>18,495 B / 578</td><td>(Exhibit A)</td></tr>
+  </table></div>
+  <p class="hint">Costs are what each workshop reported: “metered” is billed per token to the OpenRouter key; “estimated” is the workshop's list-price estimate for work covered by a flat subscription. Hermes builds on the original workshop weren't metered yet. Line counts are as an editor shows them.</p>
+
+  <hr class="rule">
+
   <h2><span class="tag">Look closer</span>Four differences you can see</h2>
   <div class="spots">
     <div class="spot"><h4>1 · The maze that stops early</h4><p>Grok's grid is nominally 28×31, but only the top 24 rows contain maze — the bottom seven rows are blank, and it holds <strong>216</strong> dots and pellets against the arcade's (and the other two builds') <strong>244</strong>. A compressed maze, hiding in a full-size frame.</p></div>
@@ -121,7 +198,7 @@
   <hr class="rule">
 
   <h2><span class="tag">Under the hood</span>The measured differences</h2>
-  <table>
+  <div class="tblwrap"><table>
     <tr><th></th><th class="c-muse">Muse-PacMan</th><th class="c-grok">grok-PacMan</th><th class="c-ws">workshop-PacMan</th></tr>
     <tr><td>Builder</td><td>Muse Spark, writing directly in chat</td><td>Grok, one generation, delivered as a file</td><td>Claude Opus 5.5, run by the Hermes harness on the Workshop VPS</td></tr>
     <tr><td>Process</td><td>Author → self-test → fix, one session</td><td>Generate → hand over</td><td>Kanban brief → factory dispatch → build → RESULT.md + build report → independent re-verification</td></tr>
@@ -133,7 +210,7 @@
     <tr><td>Arcade minutiae</td><td>“No-up-turn” zones at the house junctions — implemented</td><td>Not implemented</td><td>Not implemented (admitted in its report); adds “Cruise Elroy” Blinky speedup instead</td></tr>
     <tr><td>Beyond the brief</td><td>Bonus fruit, floating score popups, swipe + on-screen D-pad</td><td>— (closest to the brief, nothing extra)</td><td>Bonus fruit, extra life at 10,000, attract mode, background siren + intro jingle, M to mute, auto-pause when the tab hides, swipe</td></tr>
     <tr><td>Verification</td><td>Builder's own headless scenario suite — it caught two real bugs before delivery (a ghost-trapping bug, an eyes-return bug)</td><td>None supplied with the build; a post-hoc smoke test by Muse (boots, starts, scores) is the only evidence on file</td><td>Builder ran a headless-Chrome (Puppeteer) suite, <strong>28/28 checks</strong>, with screenshots — then Muse re-verified independently (syntax, zero external refs, 2,020-frame smoke run)</td></tr>
-  </table>
+  </table></div>
 
   <h2><span class="tag">The argument</span>It's the harness, not the model</h2>
   <p>The tempting story is “Opus beat Spark beat Grok” or some ranking of raw model IQ. The evidence in these three files tells a different one. The two Claude builds share a model family, and both implement the classic ghost-targeting mathematics faithfully — direct chase, four-ahead ambush, the Inky vector trick, shy Clyde. Where they diverge is everything <em>around</em> the code.</p>
@@ -154,11 +231,23 @@
   </div>
 
   <footer>
-    <p><strong>Play them:</strong> <a href="https://marlandoj.github.io/Muse-PacMan/">Muse-PacMan</a> · <a href="https://marlandoj.github.io/grok-PacMan/">grok-PacMan</a> · <a href="https://marlandoj.github.io/workshop-PacMan/">workshop-PacMan</a> &nbsp;|&nbsp; <strong>Code:</strong> <a href="https://github.com/marlandoj/Muse-PacMan">Muse-PacMan</a> · <a href="https://github.com/marlandoj/grok-PacMan">grok-PacMan</a> · <a href="https://github.com/marlandoj/workshop-PacMan">workshop-PacMan</a> (its BUILD-REPORT.md is the factory's own account of the build).</p>
-    <p>Method: all measurements taken from the published <span class="mono">index.html</span> files on 2026-10-22 — byte and line counts, maze contents counted tile by tile, timing and AI behaviour read from the source. The refresh-rate observation about grok-PacMan follows from its update loop, which advances the game once per <span class="mono">requestAnimationFrame</span> tick with fixed per-frame increments and no delta-time term. The split-screen panels above are the live games themselves, embedded — not screenshots, not mock-ups.</p>
+    <p><strong>Play them:</strong> <a href="https://marlandoj.github.io/Muse-PacMan/">Muse-PacMan</a> · <a href="https://marlandoj.github.io/grok-PacMan/">grok-PacMan</a> · <a href="https://marlandoj.github.io/workshop-PacMan/">workshop-PacMan</a> · <a href="games/pi-opus/">Pi · Opus 5.5</a> · <a href="games/claude-code-opus/">Claude Code · Opus 5.5</a> · <a href="games/claude-code-fable/">Claude Code · Fable 5.1</a> · <a href="games/hermes-grok/">Hermes · Grok 4.7</a> · <a href="games/hermes-kimi/">Hermes · Kimi K3.1 Pro</a> · <a href="games/codex-astra/">Codex · GPT-6 Astra</a> · <a href="games/hermes-muse-wonder/">Hermes · Muse Wonder</a> · <a href="games/claude-direct/">Claude · Opus 5.5, in chat</a> &nbsp;|&nbsp; <strong>Code:</strong> <a href="https://github.com/marlandoj/Muse-PacMan">Muse-PacMan</a> · <a href="https://github.com/marlandoj/grok-PacMan">grok-PacMan</a> · <a href="https://github.com/marlandoj/workshop-PacMan">workshop-PacMan</a> (its BUILD-REPORT.md is the factory's own account of the build).</p>
+    <p>Exhibit B builds were added on 2026-10-29 from the workshop runs of 24–29 October; each lives in this repo under <span class="mono">games/</span>, byte-identical to what its builder delivered (checked by SHA-256). Method for the original essay: all measurements taken from the published <span class="mono">index.html</span> files on 2026-10-22 — byte and line counts, maze contents counted tile by tile, timing and AI behaviour read from the source. The refresh-rate observation about grok-PacMan follows from its update loop, which advances the game once per <span class="mono">requestAnimationFrame</span> tick with fixed per-frame increments and no delta-time term. The split-screen panels above are the live games themselves, embedded — not screenshots, not mock-ups.</p>
   </footer>
 </main>
 <script>
+  // Some embedded games focus themselves on load, which can scroll the page
+  // to their frame. Keep the reader where they are for the first few seconds
+  // unless they scroll or interact first.
+  (function () {
+    const start = performance.now(); let moved = false;
+    ["wheel","touchstart","keydown","pointerdown"].forEach(ev =>
+      addEventListener(ev, () => { moved = true; }, { passive: true, capture: true }));
+    const y0 = scrollY;
+    addEventListener("scroll", () => {
+      if (!moved && performance.now() - start < 5000 && Math.abs(scrollY - y0) > 2) scrollTo(0, y0);
+    });
+  })();
   function setStage(three){
     document.getElementById('stage').classList.toggle('three', three);
     document.getElementById('btnTwo').classList.toggle('on', !three);
